@@ -22,13 +22,13 @@ def getChord(num):
         row = random.randint(0,len(chords.index)-1)
         print(chords.iloc[row,:].values.tolist())
 
+print("Spitting Chords! Press Ctrl-C to stop.")
+
 if args.loop:
     while True:
-        print("Spitting Chords! Press Ctrl-C to stop.")
         getChord(args.nchord)
         time.sleep(args.interval) 
 else:
     while True:
-        print("Spitting Chords! Press Ctrl-C to stop.")
         getChord(args.nchord)
         input("Press a key for next chord:")
