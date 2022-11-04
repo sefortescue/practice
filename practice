@@ -29,6 +29,9 @@ if args.loop:
         getChord(args.nchord)
         time.sleep(args.interval) 
 else:
+    i = 0
     while True:
+        print("You've seen ",i," chords!")
         getChord(args.nchord)
+        i += 1
         input("Press a key for next chord:")
