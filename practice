@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import sys
+import time
+import random
+import argparse
+import pandas as pd
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-n','--nchord',type=int,nargs='?',default=1, 
+                    help='number of chords to spit out at each interval')
+parser.add_argument('-l','--loop',action='store_true',
+                    help='if given chords will be spit out every -i seconds')
+parser.add_argument('-i','--interval',type=int,nargs='?',default=10,
+                    help='number of seconds between output when -l is true')
+args = parser.parse_args()
+
+chords = pd.read_csv("chords.csv", names=['n1','n2','n3','n4'],dtype=int)
+
+def getChord(num):
+    for _ in range(num):
+        row = random.randint(0,len(chords.index)-1)
+        print(chords.iloc[row,:].values.tolist())
+
+if args.loop:
+    while True:
+        print("Spitting Chords! Press Ctrl-C to stop.")
+        getChord(args.nchord)
+        time.sleep(args.interval) 
+else:
+    while True:
+        print("Spitting Chords! Press Ctrl-C to stop.")
+        getChord(args.nchord)
+        input("Press a key for next chord:")
