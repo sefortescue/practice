@@ -8,30 +8,50 @@ import pandas as pd
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-n','--nchord',type=int,nargs='?',default=1, 
-                    help='number of chords to spit out at each interval')
+                    help='number of chords or diffs to spit out at each interval')
 parser.add_argument('-l','--loop',action='store_true',
-                    help='if given chords will be spit out every -i seconds')
+                    help='if given chords or diffs will be spat out every -i seconds')
 parser.add_argument('-i','--interval',type=int,nargs='?',default=10,
                     help='number of seconds between output when -l is true')
+parser.add_argument('-d','--diff',action='store_true',
+                    help='will spit out chord differences instead of chords')
 args = parser.parse_args()
 
-chords = pd.read_csv("chords.csv",names=['n1','n2','n3','n4'],dtype=int)
-
-def getChord(num):
+def getChord(num,chords):
     for _ in range(num):
         row = random.randint(0,len(chords.index)-1)
         print(chords.iloc[row,:].values.tolist())
 
-print("Spitting Chords! Press Ctrl-C to stop.")
+def getDiff(num,diffs):
+    for _ in range(num):
+        row = random.randint(0,len(diffs.index)-1)
+        print(diffs.iloc[row,:].values.tolist())
 
-if args.loop:
-    while True:
-        getChord(args.nchord)
-        time.sleep(args.interval) 
+if args.diff:
+    ddat = pd.read_csv("diffs.csv",names=['d1','d2','d3,','d4,'],dtype=int)
+    print("Spitting Diffs! Press Ctrl-C to stop.")
+    if args.loop:
+        while True:
+            getDiff(args.nchord,ddat)
+            time.sleep(args.interval) 
+    else:
+        i = 0
+        while True:
+            print("You've seen ",i," diffs!")
+            getDiff(args.nchord,ddat)
+            i += 1
+            input("Press Enter for next chord:")
 else:
-    i = 0
-    while True:
-        print("You've seen ",i," chords!")
-        getChord(args.nchord)
-        i += 1
-        input("Press Enter for next chord:")
+    cdat = pd.read_csv("chords.csv",names=['n1','n2','n3','n4'],dtype=int)
+    print("Spitting Chords! Press Ctrl-C to stop.")
+    if args.loop:
+        while True:
+            getChord(args.nchord,cdat)
+            time.sleep(args.interval) 
+    else:
+        i = 0
+        while True:
+            print("You've seen ",i," chords!")
+            getChord(args.nchord,cdat)
+            i += 1
+            input("Press Enter for next chord:")
