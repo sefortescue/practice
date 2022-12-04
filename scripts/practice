@@ -28,7 +28,7 @@ def getDiff(num,diffs):
         print(diffs.iloc[row,:].values.tolist())
 
 if args.diff:
-    ddat = pd.read_csv("diffs.csv",names=['d1','d2','d3,','d4,'],dtype=int)
+    ddat = pd.read_csv("../dat/diffs.csv",names=['d1','d2','d3,','d4,'],dtype=int)
     print("Spitting Diffs! Press Ctrl-C to stop.")
     if args.loop:
         while True:
@@ -42,7 +42,7 @@ if args.diff:
             i += 1
             input("Press Enter for next chord:")
 else:
-    cdat = pd.read_csv("chords.csv",names=['n1','n2','n3','n4'],dtype=int)
+    cdat = pd.read_csv("../dat/chords.csv",names=['n1','n2','n3','n4'],dtype=int)
     print("Spitting Chords! Press Ctrl-C to stop.")
     if args.loop:
         while True:

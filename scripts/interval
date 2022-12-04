@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import random
+import pandas as pd
+
+cdat = pd.read_csv("../dat/norep.csv",names=['n1','n2','n3','n4'],dtype=int)
+
+while True:
+    row = random.randint(0,len(cdat.index)-1)
+    print(cdat.iloc[row,:].values.tolist())
+    input("Press Enter for next chord:")

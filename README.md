@@ -1,5 +1,5 @@
 # practice
-a python script to practice guitar with
+a couple python scripts to practice guitar with
 
 For usage:
 ```
